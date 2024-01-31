@@ -1,0 +1,224 @@
+body {
+  padding-top: 29px;
+  margin: 0;
+  overflow: hidden;
+  scroll-behavior: smooth;
+  background-image: url("../images/background.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: -1;
+}
+
+/* Navigation Bar Styles */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(5px);
+  transition: top 0.3s;
+}
+
+.navbar-toggler {
+  background-color: aqua;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: #bfa181;
+  position: relative;
+}
+
+.navbar-light .navbar-nav .nav-link::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: #bfa181;
+  transform-origin: center bottom;
+  transform: translateX(-50%);
+  transition: 0.3s ease-in-out;
+}
+
+.navbar-light .navbar-nav .nav-link:hover::before {
+  width: 100%;
+}
+
+.navbar-light .navbar-nav .nav-link:hover {
+  color: #178582;
+}
+
+.navbar-brand img {
+  height: 30px;
+}
+
+main {
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+
+/* Hide the scrollbar for webkit browsers (Chrome, Safari) */
+main::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
+
+/* Sections */
+main > section {
+  min-height: 100vh; /* Set each section to occupy at least the full height of the viewport */
+  display: flex;
+  align-items: center;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  transition: background-color 0.3s ease-in-out;
+}
+
+/* Home Section Styles */
+#home {
+  color: #fff;
+  padding: 60px 0;
+}
+
+#home h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+#home p {
+  font-size: 1.25rem;
+  margin-bottom: 30px;
+}
+
+#home img {
+  border: 5px solid #bfa181;
+  border-radius: 50%;
+  max-width: 100%;
+  margin: 0 auto; /* Center the image */
+}
+
+#home .btn-primary,
+#home .btn-outline-dark {
+    color: #bfa181;
+  border-color: #bfa181;
+  margin-bottom: 30px;
+  margin: 15px;
+}
+
+#home .btn-primary:hover,
+#home .btn-outline-dark:hover {
+  color: #bfa181;
+  background-color: #178582;
+  border-color: #bfa181;
+}
+
+/* Additional CSS for Social Icons */
+.social-icons {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+}
+
+.social-icon {
+  color: #fff;
+  font-size: 20px;
+  text-decoration: none;
+  transition: color 0.3s;
+  border: 2px solid #178582;
+  border-radius: 50%;
+  padding: 4px 10px;
+  position: absolute;
+}
+
+.social-icon.top {
+  top: -258px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.social-icon.left {
+  top: 50%;
+  left: -267px;
+  transform: translateY(-50%);
+}
+
+.social-icon.bottom {
+  bottom: -258px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.social-icon.right {
+  top: 50%;
+  right: -265px;
+  transform: translateY(-50%);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 767px) {
+  #home img {
+    width: 80%;
+    margin: 36.3px;
+  }
+  .social-icon.top {
+    top: -180px;
+  }
+  .social-icon.left {
+    left: -186px;
+  }
+  .social-icon.bottom {
+    bottom: -180px;
+  }
+  .social-icon.right {
+    right: -185px;
+  }
+}
+
+/* Specific style for Contact Section */
+#contact {
+  min-height: 90vh;
+}
+
+/* Footer Section */
+main > footer {
+  position: relative; /* Set position to relative to accommodate footer::before */
+}
+
+main > footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: -1;
+}
+
+/* Adjustments for mobile responsiveness */
+@media (max-width: 767px) {
+  body {
+    padding-top: 20px; /* Adjust padding for smaller screens */
+  }
+
+  .navbar {
+    padding: 10px;
+  }
+}
