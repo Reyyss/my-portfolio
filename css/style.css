@@ -73,7 +73,6 @@ main {
   scroll-behavior: smooth;
 }
 
-/* Hide the scrollbar for webkit browsers (Chrome, Safari) */
 main::-webkit-scrollbar {
   width: 0;
   background: transparent;
@@ -81,7 +80,7 @@ main::-webkit-scrollbar {
 
 /* Sections */
 main > section {
-  min-height: 100vh; /* Set each section to occupy at least the full height of the viewport */
+  min-height: 100vh;
   display: flex;
   align-items: center;
   scroll-snap-align: start;
@@ -109,7 +108,7 @@ main > section {
   border: 5px solid #bfa181;
   border-radius: 50%;
   max-width: 100%;
-  margin: 0 auto; /* Center the image */
+  margin: 0 auto;
 }
 
 #home .btn-primary,
@@ -197,7 +196,7 @@ main > section {
 
 /* Footer Section */
 main > footer {
-  position: relative; /* Set position to relative to accommodate footer::before */
+  position: relative;
 }
 
 main > footer::before {
@@ -214,7 +213,7 @@ main > footer::before {
 /* Adjustments for mobile responsiveness */
 @media (max-width: 767px) {
   body {
-    padding-top: 20px; /* Adjust padding for smaller screens */
+    padding-top: 20px; 
   }
 
   .navbar {
