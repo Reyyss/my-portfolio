@@ -1,5 +1,5 @@
 body {
-  padding-top: 29px;
+  padding-top: 38px;
   margin: 0;
   overflow: hidden;
   scroll-behavior: smooth;
@@ -102,6 +102,8 @@ main > section {
 #home p {
   font-size: 1.25rem;
   margin-bottom: 30px;
+  text-align: justify;
+  text-justify: inter-word;
 }
 
 #home img {
@@ -122,71 +124,8 @@ main > section {
 #home .btn-primary:hover,
 #home .btn-outline-dark:hover {
   color: #bfa181;
-  background-color: #178582;
+  background-color: #0d3a38;
   border-color: #bfa181;
-}
-
-.social-icons {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-}
-
-.social-icon {
-  color: #fff;
-  font-size: 20px;
-  text-decoration: none;
-  transition: color 0.3s;
-  border: 2px solid #178582;
-  border-radius: 50%;
-  padding: 4px 10px;
-  position: absolute;
-}
-
-.social-icon.top {
-  top: -258px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.social-icon.left {
-  top: 50%;
-  left: -267px;
-  transform: translateY(-50%);
-}
-
-.social-icon.bottom {
-  bottom: -258px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.social-icon.right {
-  top: 50%;
-  right: -265px;
-  transform: translateY(-50%);
-}
-
-/* Mobile Responsiveness */
-@media (max-width: 767px) {
-  #home img {
-    width: 80%;
-    margin: 36.3px;
-  }
-  .social-icon.top {
-    top: -180px;
-  }
-  .social-icon.left {
-    left: -186px;
-  }
-  .social-icon.bottom {
-    bottom: -180px;
-  }
-  .social-icon.right {
-    right: -185px;
-  }
 }
 
 /* Specific style for Contact Section */
