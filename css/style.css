@@ -112,10 +112,36 @@ main > section {
 }
 
 #home #work {
-  font-size: 3rem;
-  margin-top: -20px;
+  margin-top: 40px;
   font-family: "Raleway";
 }
+
+#home #typing-text {
+  color: #178582;
+  font-size: 3rem;
+  margin-top: -20px;
+  font-weight: 500;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 2px solid #178582;
+  display: inline-block;
+}
+
+#home #cursor {
+  font-size: 40px;
+  display: inline-block;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 50%, 100% {
+    opacity: 0;
+  }
+  25%, 75% {
+    opacity: 1;
+  }
+}
+
 
 #home p {
   font-size: 1.25rem;
@@ -130,7 +156,7 @@ main > section {
   border-radius: 50%;
   max-width: 100%;
   margin: 0 auto;
-  outline-style: inset;
+  outline-style: solid;
   outline-color: #178582;
   outline-offset: 30px;
 }
@@ -150,7 +176,7 @@ main > section {
   border-color: #bfa181;
 }
 
-/* Specific style for Contact Section */
+/*style for Contact Section */
 #contact {
   min-height: 90vh;
 }
@@ -195,5 +221,9 @@ main > footer::before {
     margin-bottom: 70px;
     padding: 6px 14px;
     font-size: 14px;
+  }
+
+  #home #typing-text {
+    font-size: 2.2rem;
   }
 }
