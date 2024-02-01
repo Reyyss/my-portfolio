@@ -134,14 +134,16 @@ main > section {
 }
 
 @keyframes blink {
-  0%, 50%, 100% {
+  0%,
+  50%,
+  100% {
     opacity: 0;
   }
-  25%, 75% {
+  25%,
+  75% {
     opacity: 1;
   }
 }
-
 
 #home p {
   font-size: 1.25rem;
