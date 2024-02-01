@@ -1,3 +1,8 @@
+@font-face {
+  font-family: "NolluqapersonaluseRegular";
+  src: url("../fonts//NolluqapersonaluseRegular-VGMge.otf") format("opentype");
+}
+
 body {
   padding-top: 38px;
   margin: 0;
@@ -33,7 +38,7 @@ body::before {
 }
 
 .navbar-toggler {
-  background-color: aqua;
+  background-color: #178582;
 }
 
 .navbar-light .navbar-nav .nav-link {
@@ -95,8 +100,21 @@ main > section {
 }
 
 #home h2 {
-  font-size: 2.5rem;
-  margin-bottom: 20px;
+  font-size: 1.5rem;
+  margin-top: -30px;
+  font-family: "Raleway";
+}
+
+#home h2 span {
+  font-family: "Raleway";
+  font-size: 5rem;
+  color: #bfa181;
+}
+
+#home #work {
+  font-size: 3rem;
+  margin-top: -20px;
+  font-family: "Raleway";
 }
 
 #home p {
@@ -104,6 +122,7 @@ main > section {
   margin-bottom: 30px;
   text-align: justify;
   text-justify: inter-word;
+  font-family: "Open Sans";
 }
 
 #home img {
@@ -111,11 +130,14 @@ main > section {
   border-radius: 50%;
   max-width: 100%;
   margin: 0 auto;
+  outline-style: inset;
+  outline-color: #178582;
+  outline-offset: 30px;
 }
 
 #home .btn-primary,
 #home .btn-outline-dark {
-    color: #bfa181;
+  color: #bfa181;
   border-color: #bfa181;
   margin-bottom: 30px;
   margin: 15px;
@@ -152,10 +174,26 @@ main > footer::before {
 /* Adjustments for mobile responsiveness */
 @media (max-width: 767px) {
   body {
-    padding-top: 20px; 
+    padding-top: 20px;
   }
 
   .navbar {
     padding: 10px;
+  }
+
+  #home p {
+    font-size: 16px;
+  }
+
+  #home img {
+    max-width: 70%;
+  }
+
+  #home .btn-primary,
+  #home .btn-outline-dark {
+    margin-top: 5px;
+    margin-bottom: 70px;
+    padding: 6px 14px;
+    font-size: 14px;
   }
 }
