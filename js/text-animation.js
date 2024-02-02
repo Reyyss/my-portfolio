@@ -33,3 +33,4 @@ const dynamicTexts = ["Future Programmer", "Web Developer", "Android developer"]
   document.addEventListener("DOMContentLoaded", function () {
     setTimeout(type, 1000); // Start the typing animation after 1 second
   });
+  

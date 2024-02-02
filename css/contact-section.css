@@ -1,0 +1,54 @@
+/*style for Contact Section */
+#contact {
+  min-height: 90vh;
+  padding: 60px 0;
+}
+
+#contact h2, #contact p {
+  color: #bfa181;
+  margin-bottom: 40px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 1s ease-out forwards;
+}
+
+#contact #social {
+  font-size: 40px;
+}
+
+.form-group label {
+  color: #bfa181;
+}
+
+.form-control {
+  border-color: #178582;
+}
+
+.btn-primary {
+  background-color: #178582;
+  border-color: #178582;
+}
+
+.btn-primary:hover {
+  background-color: #0d3a38;
+  border-color: #0d3a38;
+}
+
+/* Add hover effect and spinning animation to social icons */
+#contact i#social {
+  cursor: pointer;
+  transition: transform 0.5s ease;
+}
+
+#contact i#social:hover {
+  color: #0d3a38;
+  transform: scale(1.2) rotate(360deg);
+}
+
+/* Animation Keyframes */
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

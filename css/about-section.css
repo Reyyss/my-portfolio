@@ -1,0 +1,25 @@
+/* About Section Styles */
+#about {
+    padding: 60px 0;
+  }
+  
+  .about-content {
+    padding: 30px;
+  }
+  
+  .about-content h2 {
+    color: #bfa181; 
+  }
+  
+  .about-content p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    color: aliceblue;
+  }
+  
+  .about-content img {
+    max-width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
