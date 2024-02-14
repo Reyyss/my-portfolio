@@ -34,3 +34,4 @@ const dynamicTexts = ["Future Programmer", "Web Developer", "Android developer"]
     setTimeout(type, 1000); // Start the typing animation after 1 second
   });
   
+  

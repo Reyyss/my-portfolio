@@ -67,6 +67,11 @@ body::before {
   color: #178582;
 }
 
+.navbar-light .navbar-nav .nav-link.active {
+  color: #178582;
+  border-bottom: 2px solid#bfa181;
+}
+
 .navbar-brand img {
   height: 30px;
 }
@@ -145,7 +150,7 @@ main > section {
   }
 }
 
-#home p {
+#home .lead p {
   font-size: 1.25rem;
   margin-bottom: 30px;
   text-align: justify;

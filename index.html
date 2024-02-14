@@ -7,6 +7,9 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <title>Rey's - Portfolio</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
@@ -75,8 +78,10 @@
                 </h2>
 
                 <p class="lead">
-                  Passionate in Web and Mobile App Development. Committed in
-                  learning and exploring new ideas.
+                  Aspiring Web and Mobile App Developer with a passion for
+                  crafting digital experiences. Currently studying at Western
+                  Mindanao State University, I am dedicated to learning and
+                  exploring new technologies to bring innovative ideas to life.
                 </p>
                 <a href="#contact" class="btn btn-outline-dark">
                   <i class="fas fa-envelope mr-1"></i> Message Me
@@ -125,38 +130,47 @@
                 src="images/profile.png"
                 alt="About Me"
                 class="img-fluid rounded"
+                id="about-me-profile"
               />
             </div>
             <div class="col-lg-6">
               <div class="about-content">
                 <h2 class="display-4 mb-4 text-center">About Me</h2>
                 <p class="lead">
-                  Hey there! 🌟 I'm <span id="name">Reynido S. Hamog</span>, a
-                  4th-year college student at Western Mindanao State University
-                  (WMSU) with big dreams of becoming a Web and Android
-                  Developer. I'm on this exciting journey to explore the world
-                  of technology and soak up as much knowledge as I can.
+                  Hey there! 🌟 I'm <span id="aboutme">Reynido S. Hamog</span>,
+                  23 years old and a fourth-year student at Western Mindanao
+                  State University (WMSU), pursuing a degree in Bachelor of
+                  Science in Information Technology (BSIT). I'm on a mission to
+                  become a skilled Web and Android Developer, and my college
+                  journey is a thrilling ride of discovery and growth.
                 </p>
                 <p class="lead">
-                  Right now, I'm diving into both front-end and back-end
-                  development, learning the ropes and discovering cool ways to
-                  build awesome things online. I love a good challenge, and I'm
-                  always up for tackling new and exciting projects. Staying in
-                  the loop with the latest tech trends is my jam!
+                  Right now, I'm diving into the worlds of front-end and
+                  back-end development. Learning the ropes, unraveling
+                  complexities, and finding creative ways to build awesome
+                  things online keep me hooked. Challenges are my playground,
+                  and I'm always up for new and exciting projects.
                 </p>
                 <p class="lead">
-                  Take a peek at my portfolio to check out the projects I've
-                  been working on during my college adventures. I'm super keen
-                  on collaborating and open to any opportunities that come my
-                  way. If you've got a cool project or just want to chat tech,
-                  hit me up! Let's bring some amazing ideas to life together! 🚀
+                  My portfolio is a showcase of the projects I've tackled during
+                  my college adventures. I'm eager to collaborate and open to
+                  any opportunities that come my way. Whether you've got a cool
+                  project or just want to chat tech, feel free to hit me up!
+                  Let's bring fantastic ideas to life together! 🚀
+                </p>
+                <p class="lead">
+                  Alongside my academic journey, I stay tuned to the latest tech
+                  trends. My goal is to contribute meaningfully to the
+                  ever-evolving field of technology and make a positive impact.
+                  If you share the same passion, let's connect and explore the
+                  boundless possibilities of the tech world.
                 </p>
               </div>
             </div>
           </div>
         </div>
       </section>
-      
+
       <!-- Skills Section -->
       <section id="skills" class="py-5">
         <div class="container">
@@ -379,26 +393,47 @@
       <section id="projects" class="py-5">
         <div class="container">
           <h2 class="display-4 text-center">Projects</h2>
-
           <div class="row mt-5">
             <!-- Project 1 -->
-            <div class="col-md-3">
+            <div class="col-md-4">
               <div class="card mb-4">
-                <img
-                  src="images/background.jpg"
-                  class="card-img-top"
-                  alt="Project 1"
-                />
-                <div class="card-body">
-                  <h5 class="card-title">Project 1</h5>
-                  <p class="card-text">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Integer nec odio. Praesent libero. Sed cursus ante dapibus
-                    diam.
-                  </p>
-                  <a href="#" class="btn btn-outline-dark" id="view"
-                    >View Details</a
-                  >
+                <div class="flip-card">
+                  <div class="flip-card-inner">
+                    <!-- Front face of the card -->
+                    <div class="flip-card-front">
+                      <div class="position-relative">
+                        <img
+                          src="images/profile.png"
+                          class="card-img-top"
+                          alt="Project 1"
+                        />
+                        <div class="card-title-inside">E-Commerce Website</div>
+                      </div>
+                    </div>
+                    <!-- Back face of the card -->
+                    <div class="flip-card-back">
+                      <div class="card-body">
+                        <p class="card-text">
+                          Developed a fully functional e-commerce website using
+                          HTML, CSS, and JavaScript. Implemented features such
+                          as product listing, user authentication, and cart
+                          management.
+                        </p>
+                        <p class="card-text">
+                          Technologies Used: HTML, CSS, JavaScript and PHP
+                          <br />
+                          Role: Full Stack Developer
+                        </p>
+                        <a
+                          href="#"
+                          class="btn btn-outline-dark"
+                          id="see-project"
+                        >
+                          View Details
+                        </a>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -475,11 +510,9 @@
     </main>
 
     <!-- Bootstrap JS and jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
     <script src="js/text-animation.js"></script>
     <script src="js/icon-display.js"></script>
+    <script src="js/active-nav.js"></script>
   </body>
 </html>
