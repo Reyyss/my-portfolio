@@ -8,9 +8,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['email'];
     $password = $_POST['password'];
 
-    // Debugging: Print the values to check if they are received correctly
-    echo "Username: $username, Password: $password";
-
     // Prepare and bind parameters to prevent SQL injection
     $stmt = $conn->prepare("SELECT id, email, password FROM login WHERE email = ?");
     $stmt->bind_param("s", $username);
@@ -20,9 +17,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Get the result
     $result = $stmt->get_result();
-
-    // Debugging: Print the number of rows returned
-    echo "Number of rows: " . $result->num_rows;
 
     // Check if the query was successful and if there is a user with the given username
     if ($result->num_rows === 1) {
@@ -43,13 +37,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = 'User not found';
     }
 
-    // Debugging: Print the SQL query to check its correctness
-echo "SQL Query: $sql";
-
-// Debugging: Print the result of the query for further analysis
-var_dump($result);
-
-
     // Close the statement
     $stmt->close();
     // Close the database connection
@@ -57,9 +44,6 @@ var_dump($result);
 }
 
 ?>
-
-
-
 
 <!DOCTYPE html>
 <html lang="en">
