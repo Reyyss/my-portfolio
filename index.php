@@ -28,7 +28,7 @@
   <body>
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-light">
-      <a class="navbar-brand" href="admin/admin.html"
+      <a class="navbar-brand" href="admin/login/login.php"
         ><img src="images/LOGO.png" alt="Logo" style="height: 30px"
       /></a>
       <button
