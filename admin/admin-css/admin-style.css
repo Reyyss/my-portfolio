@@ -20,11 +20,34 @@
 
 .navbar .logo img {
   height: 40px; /* Adjust height as needed */
+  vertical-align: middle; /* Align the image vertically */
 }
 
 .navbar .admin-profile img {
   height: 40px; /* Adjust height as needed */
   border-radius: 50%;
+  vertical-align: middle; /* Align the image vertically */
+}
+
+.navbar .admin-profile .notification-icon {
+  font-size: 16px;
+  color: #fff;
+  margin-left: 10px;
+  cursor: pointer;
+  vertical-align: middle;
+  position: relative;
+}
+
+.notification-counter {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 4px;
+  font-size: 10px;
+  font-weight: bold;
 }
 
 .wrapper {
@@ -161,4 +184,47 @@
 
 .cms-content {
   margin-top: 20px;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  z-index: 1;
+  top: 50px;
+  right: 0;
+  border-radius: 5px;
+}
+
+.dropdown-content.show {
+  display: block;
+}
+
+.dropdown-content .message {
+  margin-bottom: 20px;
+}
+
+.dropdown-content .message:last-child {
+  margin-bottom: 0;
+}
+
+.dropdown-content .message i {
+  margin-right: 10px;
+  color: #007bff;
+  font-size: 18px;
+}
+
+.dropdown-content .message div {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.dropdown-content .message strong {
+  color: #333;
+}
+
+.dropdown-content .message p {
+  margin: 5px 0;
+  color: #666;
 }

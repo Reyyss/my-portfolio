@@ -1,0 +1,48 @@
+body {
+  background-color: #f8f9fa;
+}
+
+.card {
+  border: none;
+  border-radius: 20px;
+  max-height: 80vh;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow-y: auto; /* Enable vertical scrolling if content exceeds 80vh */
+}
+
+.card-header {
+  background-color: #007bff;
+  color: #000000;
+  border-radius: 20px 20px 0 0;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.form-group label {
+  font-weight: bold;
+}
+
+.form-control {
+  border-radius: 8px; /* Smaller border radius */
+  font-size: 14px; /* Smaller font size */
+  padding: 8px; /* Smaller padding */
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+  border-radius: 10px;
+  font-size: 16px; /* Larger font size */
+  padding: 10px; /* Larger padding */
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+.img-fluid {
+  max-height: 150px; /* Smaller max-height for the image */
+  width: auto;
+  border-radius: 50%;
+}

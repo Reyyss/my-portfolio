@@ -65,13 +65,13 @@
   background-color: transparent;
   height: 15px;
   margin-top: 10px;
-  border: 1px solid#0d3a38;
+  border: 1px solid #0d3a38;
   border-radius: 4px;
   overflow: hidden;
 }
 
 .progress:hover {
-  border: 1px solid#bfa181;
+  border: 1px solid #bfa181;
 }
 
 .progress-bar {

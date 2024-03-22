@@ -1,65 +1,135 @@
-
-/* About Section Styles */
+/* About Section */
 #about {
   padding: 80px 0;
-  position: relative;
-  overflow: hidden;
+  overflow: hidden; /* Prevent overlapping */
 }
 
-.about-content {
-  text-align: left;
-  position: relative;
-  z-index: 1;
-  color: #bfa181;
+#about .about-content {
+  padding-left: 30px; /* Adjust padding to the left */
 }
 
-.about-content h2 {
-  color: #bfa181; 
-  font-weight: bold;
-  margin-bottom: 30px;
-  position: relative;
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeInUp 1s ease-out forwards;
+#about h2 {
+  color: #fff;
+  font-weight: 700;
+  text-align: center;
+  font-size: 36px;
+  margin-bottom: 40px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  animation: slideInUp 1s ease;
 }
 
-.about-content p {
-  font-size: 18px;
-  line-height: 1.6;
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeInUp 1s ease-out forwards;
+#about .card {
+  background-color: transparent;
+  border: none;
   margin-bottom: 20px;
-}
-
-#about-me {
-  color: #178582;
-  font-weight: bold;
-  font-size: 24px;
-}
-
-.about-me-profile {
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
-  opacity: 0;
-  background-color: rgba(255, 255, 255, 0.05);
-  transform: translateY(20px);
-  animation: fadeInUp 1s ease-out forwards, floatImage 4s infinite ease-in-out;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 3s ease forwards, slideInRight 3s ease-out forwards,
+    slideInBottom 3s ease-out forwards; /* Adjust animation */
+  position: relative; /* Add position relative */
+  z-index: 1; /* Ensure the card stays on top of other elements */
+  max-width: 500px; /* Adjust maximum width */
+  width: 100%; /* Ensure the card takes full width of its container */
 }
 
-/* Animation Keyframes */
-@keyframes fadeInUp {
+#about .card-body {
+  padding: 15px; /* Reduce padding */
+}
+
+#about .card-title {
+  font-size: 20px; /* Reduce title font size */
+  font-weight: bold;
+  color: #fff; /* Title color */
+  margin-bottom: 10px; /* Reduce margin */
+}
+
+#about .card-title i {
+  margin-right: 10px; /* Add space between icon and text */
+}
+
+#about .card-text {
+  font-size: 16px; /* Reduce text font size */
+  line-height: 1.6;
+  color: #ccc;
+  opacity: 0;
+  animation: fadeIn 3s ease forwards;
+}
+
+#about img {
+  max-width: 100%;
+  height: auto;
+  animation: slideInLeft 3s ease;
+}
+
+@media (max-width: 768px) {
+  #about .about-content {
+    padding-left: 0;
+    padding-top: 30px;
+  }
+}
+
+@media (max-width: 576px) {
+  #about h2 {
+    font-size: 28px;
+  }
+
+  #about .card-text {
+    font-size: 14px; /* Further reduce text font size for smaller screens */
+  }
+}
+
+/* Keyframe animations */
+@keyframes slideInUp {
+  from {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInBottom {
+  from {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
   to {
     opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes floatImage {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
   }
 }

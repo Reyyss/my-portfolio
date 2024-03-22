@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Login successful
             $_SESSION['email'] = $username;
             // Redirect the user to the appropriate page based on their role
-            header('Location: ../admin.php');
+            header('Location: ../dashboard.php');
             exit();
         } else {
             // Invalid password
@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Login Page</title>
-    <link rel="stylesheet" href="login.css"/>
+    <link rel="stylesheet" href="../admin-css/login.css"/>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
     <!-- Font Awesome CSS -->

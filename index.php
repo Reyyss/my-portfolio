@@ -1,3 +1,23 @@
+<?php
+include 'server/server.php';
+
+// Query to fetch data from the home_section table
+$query = "SELECT * FROM home_section";
+$result = mysqli_query($conn, $query);
+
+if ($result && mysqli_num_rows($result) > 0) {
+    $row = mysqli_fetch_assoc($result);
+    $name = $row['name'];
+    $description = $row['description'];
+    $cv_link = $row['cv_link'];
+    // Get the filename from the database
+    $filename = basename($row['profile_pic']);
+    // Construct the path to the image file in the uploads folder
+    $profile_pic = "uploads/" . $filename;
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -15,7 +35,7 @@
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     />
     <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="css/about-section.css" />
+    <link rel="stylesheet" href="css/about-section.css?" />
     <link rel="stylesheet" href="css/contact-section.css" />
     <link rel="stylesheet" href="css/projects-section.css" />
     <link rel="stylesheet" href="css/skills-section.css" />
@@ -71,40 +91,28 @@
             <div class="col-lg-6">
               <div class="text-center text-lg-left">
                 <h2 class="display-4 mb-4">
-                  Hello, it's me <br /><span id="name">Reynido</span>
+                    Hello, it's me <br /><span id="name"><?php echo $name; ?></span>
                 </h2>
                 <h2 class="display-4 mb-4" id="work">
                   <span id="typing-text"></span><span id="cursor">_</span>
                 </h2>
 
                 <p class="lead">
-                  Aspiring Web and Mobile App Developer with a passion for
-                  crafting digital experiences. Currently studying at Western
-                  Mindanao State University, I am dedicated to learning and
-                  exploring new technologies to bring innovative ideas to life.
-                </p>
+                            <?php echo $description; ?>
+                        </p>
                 <a href="#contact" class="btn btn-outline-dark">
                   <i class="fas fa-envelope mr-1"></i> Message Me
                 </a>
-                <a
-                  href="path/to/your-cv.pdf"
-                  download
-                  class="btn btn-outline-dark"
-                >
-                  <i class="fas fa-download mr-1"></i> Download CV
-                </a>
+                <a href="<?php echo $cv_link; ?>" download class="btn btn-outline-dark">
+                            <i class="fas fa-download mr-1"></i> Download CV
+                        </a>
               </div>
             </div>
             <div class="col-lg-6 position-relative">
               <div class="profile-container">
-                <img
-                  src="images/profile.png"
-                  alt="profile"
-                  class="img-fluid rounded-circle mx-auto d-block"
-                />
+              <img src="<?php echo $profile_pic; ?>" alt="profile" class="img-fluid rounded-circle mx-auto d-block" />
                 <i class="fas fa-power-off power-icon"></i>
                 <div class="social-icons">
-                  <!-- Add your social icons here -->
                   <div class="social-icon facebook">
                     <i class="fab fa-facebook"></i>
                   </div>
@@ -121,385 +129,367 @@
         </div>
       </section>
 
+
       <!-- About Section -->
       <section id="about">
         <div class="container">
           <div class="row align-items-center">
             <div class="col-lg-6">
-              <img
-                src="images/profile.png"
-                alt="About Me"
-                class="img-fluid rounded"
-                id="about-me-profile"
-              />
+              <?php
+              // Fetch image URL from the database
+      $sql_image = "SELECT image FROM about_section WHERE id = 1"; // Assuming id 1 for the About Me section
+      $result_image = $conn->query($sql_image);
+
+      if ($result_image->num_rows > 0) {
+          $row_image = $result_image->fetch_assoc();
+          $image = $row_image["image"];
+          // Replace spaces with %20 in the image URL
+          $image = str_replace(" ", "%20", $image);
+          echo '<img src="uploads/' . $image . '" alt="About Me" class="img-fluid rounded" id="about-me-profile">';
+      } else {
+          echo "Image not found";
+      }
+              ?>
             </div>
             <div class="col-lg-6">
               <div class="about-content">
-                <h2 class="display-4 mb-4 text-center">About Me</h2>
-                <p class="lead">
-                  Hey there! 🌟 I'm <span id="aboutme">Reynido S. Hamog</span>,
-                  23 years old and a fourth-year student at Western Mindanao
-                  State University (WMSU), pursuing a degree in Bachelor of
-                  Science in Information Technology (BSIT). I'm on a mission to
-                  become a skilled Web and Android Developer, and my college
-                  journey is a thrilling ride of discovery and growth.
-                </p>
-                <p class="lead">
-                  Right now, I'm diving into the worlds of front-end and
-                  back-end development. Learning the ropes, unraveling
-                  complexities, and finding creative ways to build awesome
-                  things online keep me hooked. Challenges are my playground,
-                  and I'm always up for new and exciting projects.
-                </p>
-                <p class="lead">
-                  My portfolio is a showcase of the projects I've tackled during
-                  my college adventures. I'm eager to collaborate and open to
-                  any opportunities that come my way. Whether you've got a cool
-                  project or just want to chat tech, feel free to hit me up!
-                  Let's bring fantastic ideas to life together! 🚀
-                </p>
-                <p class="lead">
-                  Alongside my academic journey, I stay tuned to the latest tech
-                  trends. My goal is to contribute meaningfully to the
-                  ever-evolving field of technology and make a positive impact.
-                  If you share the same passion, let's connect and explore the
-                  boundless possibilities of the tech world.
-                </p>
+                <h2 class="display-4 mb-4">About Me</h2>
+                <?php
+                // Fetch content from the database
+                $sql_content = "SELECT introduction_content, passion_content, portfolio_content, tech_trends_content FROM about_section WHERE id = 1"; // Assuming id 1 for the About Me section
+                $result_content = $conn->query($sql_content);
+
+                if ($result_content->num_rows > 0) {
+                    // Output data of each row
+                    while($row_content = $result_content->fetch_assoc()) {
+                        ?>
+                        <div class="card lead">
+                          <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-user"></i> Introduction</h5>
+                            <p class="card-text"><?php echo $row_content["introduction_content"]; ?></p>
+                          </div>
+                        </div>
+                        <div class="card lead">
+                          <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-heart"></i> Passion</h5>
+                            <p class="card-text"><?php echo $row_content["passion_content"]; ?></p>
+                          </div>
+                        </div>
+                        <div class="card lead">
+                          <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-laptop-code"></i> Portfolio</h5>
+                            <p class="card-text"><?php echo $row_content["portfolio_content"]; ?></p>
+                          </div>
+                        </div>
+                        <div class="card lead">
+                          <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-lightbulb"></i> Tech Trends</h5>
+                            <p class="card-text"><?php echo $row_content["tech_trends_content"]; ?></p>
+                          </div>
+                        </div>
+                        <?php
+                    }
+                } else {
+                    echo "0 results";
+                }
+                ?>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- Skills Section -->
-      <section id="skills" class="py-5">
-        <div class="container">
-          <h2 class="display-4 text-center">Skills</h2>
 
-          <div class="row">
-            <div class="col-md-6">
-              <h3 class="text-center mb-4">Front-end Development</h3>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                  <i class="fab fa-html5 mr-2"></i> <span>HTML5</span>
-                  <div class="progress mt-2">
-                    <div
-                      class="progress-bar bg-success"
-                      role="progressbar"
-                      style="width: 85%"
-                      aria-valuenow="80"
-                      aria-valuemin="0"
-                      aria-valuemax="100"
-                    >
-                      85%
-                    </div>
-                  </div>
-                </li>
-                <li class="list-group-item">
-                  <i class="fab fa-css3-alt mr-2"></i> <span>CSS3</span>
-                  <div class="progress mt-2">
-                    <div
-                      class="progress-bar bg-info"
-                      role="progressbar"
-                      style="width: 72%"
-                      aria-valuenow="70"
-                      aria-valuemin="0"
-                      aria-valuemax="100"
-                    >
-                      72%
-                    </div>
-                  </div>
-                </li>
-                <li class="list-group-item">
-                  <i class="fab fa-js mr-2"></i> <span>JavaScript</span>
-                  <div class="progress mt-2">
-                    <div
-                      class="progress-bar bg-warning"
-                      role="progressbar"
-                      style="width: 49%"
-                      aria-valuenow="90"
-                      aria-valuemin="0"
-                      aria-valuemax="100"
-                    >
-                      49%
-                    </div>
-                  </div>
-                </li>
-              </ul>
-            </div>
 
-            <div class="col-md-6">
-              <h3 class="text-center mb-4">Mobile App Development</h3>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                  <i class="fab fa-dart mr-2"></i> <span>Dart</span>
-                  <div class="progress mt-2">
-                    <div
-                      class="progress-bar bg-warning"
-                      role="progressbar"
-                      style="width: 56%"
-                      aria-valuenow="70"
-                      aria-valuemin="0"
-                      aria-valuemax="100"
-                    >
-                      56%
-                    </div>
-                  </div>
-                </li>
-                <li class="list-group-item">
-                  <i class="fab fa-flutter mr-2"></i> <span>Flutter</span>
-                  <div class="progress mt-2">
-                    <div
-                      class="progress-bar bg-success"
-                      role="progressbar"
-                      style="width: 60%"
-                      aria-valuenow="75"
-                      aria-valuemin="0"
-                      aria-valuemax="100"
-                    >
-                      60%
-                    </div>
-                  </div>
-                </li>
-                <li class="list-group-item">
-                  <i class="fab fa-java mr-2"></i> <span>Java</span>
-                  <div class="progress mt-2">
-                    <div
-                      class="progress-bar bg-info"
-                      role="progressbar"
-                      style="width: 43%"
-                      aria-valuenow="60"
-                      aria-valuemin="0"
-                      aria-valuemax="100"
-                    >
-                      43%
-                    </div>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
 
-          <div class="row mt-4">
-            <div class="col-md-6">
-              <h3 class="text-center mb-4">Back-end Development</h3>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                  <i class="fab fa-php mr-2"></i> <span>PHP</span>
-                  <div class="progress mt-2">
-                    <div
-                      class="progress-bar bg-info"
-                      role="progressbar"
-                      style="width: 53%"
-                      aria-valuenow="75"
-                      aria-valuemin="0"
-                      aria-valuemax="100"
-                    >
-                      53%
-                    </div>
-                  </div>
-                </li>
-                <li class="list-group-item">
-                  <i class="fas fa-database mr-2"></i> <span>SQL</span>
-                  <div class="progress mt-2">
-                    <div
-                      class="progress-bar bg-success"
-                      role="progressbar"
-                      style="width: 50%"
-                      aria-valuenow="85"
-                      aria-valuemin="0"
-                      aria-valuemax="100"
-                    >
-                      50%
-                    </div>
-                  </div>
-                </li>
-                <li class="list-group-item">
-                  <i class="fab fa-python mr-2"></i> <span>Python</span>
-                  <div class="progress mt-2">
-                    <div
-                      class="progress-bar bg-danger"
-                      role="progressbar"
-                      style="width: 42%"
-                      aria-valuenow="65"
-                      aria-valuemin="0"
-                      aria-valuemax="100"
-                    >
-                      42%
-                    </div>
-                  </div>
-                </li>
-              </ul>
-            </div>
+<!-- Skills Section -->
+<section id="skills" class="py-5">
+    <div class="container">
+        <h2 class="display-4 text-center">Skills</h2>
 
-            <div class="col-md-6">
-              <h3 class="text-center mb-4">Other Skills</h3>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                  <i class="fab fa-git mr-2"></i>
-                  <span>Git & Version Control</span>
-                  <div class="progress mt-2">
-                    <div
-                      class="progress-bar bg-danger"
-                      role="progressbar"
-                      style="width: 40%"
-                      aria-valuenow="90"
-                      aria-valuemin="0"
-                      aria-valuemax="100"
-                    >
-                      40%
+        <div class="row">
+            <?php
+            // Assuming you have established a database connection
+
+            // Query to fetch data from the database
+            $query = "SELECT category, skill, proficiency, icon FROM skills_section";
+            $result = mysqli_query($conn, $query);
+
+            // Check if query was successful
+            if ($result && mysqli_num_rows($result) > 0) {
+                // Initialize an array to store skills grouped by category
+                $grouped_skills = array();
+
+                // Loop through each row in the result set
+                while ($row = mysqli_fetch_assoc($result)) {
+                    // Check if category already exists in the grouped_skills array
+                    if (!isset($grouped_skills[$row['category']])) {
+                        // If category doesn't exist, create it
+                        $grouped_skills[$row['category']] = array();
+                    }
+
+                    // Add skill to the corresponding category
+                    $grouped_skills[$row['category']][] = array(
+                        'skill' => $row['skill'],
+                        'proficiency' => $row['proficiency'],
+                        'icon' => $row['icon']
+                    );
+                }
+
+                // Counter for column iteration
+                $column_counter = 0;
+
+                // Loop through grouped skills and output HTML
+                foreach ($grouped_skills as $category => $skills) {
+                    // Output category in a 2x2 grid layout
+                    if ($column_counter % 2 == 0) {
+                        echo '<div class="col-md-6">';
+                    }
+                    ?>
+                    <div class="text-center mb-4">
+                        <h3><?php echo $category; ?></h3>
+                        <ul class="list-group list-group-flush">
+                            <?php foreach ($skills as $skill) { ?>
+                                <li class="list-group-item">
+                                    <i class="<?php echo $skill['icon']; ?> mr-2"></i> <span><?php echo $skill['skill']; ?></span>
+                                    <div class="progress mt-2">
+                                        <div class="progress-bar bg-<?php echo $category_colors[$category]; ?>" role="progressbar"
+                                             style="width: <?php echo $skill['proficiency']; ?>%" aria-valuenow="<?php echo $skill['proficiency']; ?>"
+                                             aria-valuemin="0" aria-valuemax="100">
+                                            <?php echo $skill['proficiency']; ?>%
+                                        </div>
+                                    </div>
+                                </li>
+                            <?php } ?>
+                        </ul>
                     </div>
-                  </div>
-                </li>
-                <li class="list-group-item">
-                  <i class="fas fa-mobile-alt mr-2"></i>
-                  <span>Responsive Design</span>
-                  <div class="progress mt-2">
-                    <div
-                      class="progress-bar bg-warning"
-                      role="progressbar"
-                      style="width: 70%"
-                      aria-valuenow="80"
-                      aria-valuemin="0"
-                      aria-valuemax="100"
-                    >
-                      70%
-                    </div>
-                  </div>
-                </li>
-                <li class="list-group-item">
-                  <i class="fas fa-lightbulb mr-2"></i>
-                  <span>Problem Solving</span>
-                  <div class="progress mt-2">
-                    <div
-                      class="progress-bar bg-success"
-                      role="progressbar"
-                      style="width: 80%"
-                      aria-valuenow="95"
-                      aria-valuemin="0"
-                      aria-valuemax="100"
-                    >
-                      80%
-                    </div>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
+                    <?php
+                    // Close column div for every two categories
+                    if ($column_counter % 2 == 1 || $column_counter == count($grouped_skills) - 1) {
+                        echo '</div>';
+                    }
+                    $column_counter++;
+                }
+            } else {
+                // Handle case when no data is available
+                echo "<p>No skills found.</p>";
+            }
+
+            // Close the database connection
+            mysqli_close($conn);
+            ?>
         </div>
-      </section>
+    </div>
+</section>
 
-      <!-- Projects Section -->
-      <section id="projects" class="py-5">
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-5">
         <div class="container">
-          <h2 class="display-4 text-center">Projects</h2>
-          <div class="row mt-5">
-            <!-- Project 1 -->
-            <div class="col-md-4">
-              <div class="card mb-4">
-                <div class="flip-card">
-                  <div class="flip-card-inner">
-                    <!-- Front face of the card -->
-                    <div class="flip-card-front">
-                      <div class="position-relative">
-                        <img
-                          src="images/profile.png"
-                          class="card-img-top"
-                          alt="Project 1"
-                        />
-                        <div class="card-title-inside">E-Commerce Website</div>
-                      </div>
-                    </div>
-                    <!-- Back face of the card -->
-                    <div class="flip-card-back">
-                      <div class="card-body">
-                        <p class="card-text">
-                          Developed a fully functional e-commerce website using
-                          HTML, CSS, and JavaScript. Implemented features such
-                          as product listing, user authentication, and cart
-                          management.
-                        </p>
-                        <p class="card-text">
-                          Technologies Used: HTML, CSS, JavaScript and PHP
-                          <br />
-                          Role: Full Stack Developer
-                        </p>
-                        <a
-                          href="#"
-                          class="btn btn-outline-dark"
-                          id="see-project"
-                        >
-                          View Details
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+            <h2 class="display-4 text-center">Projects</h2>
+            <div class="row mt-5">
+                <?php
+                include 'server/server.php';
+                // Assuming you have established a database connection
+
+                // Base URL for images
+                $base_url = "./uploads/";
+
+                // Query to fetch data from the database
+                $query = "SELECT title, description, technologies_used, role, image FROM projects_section";
+                $result = mysqli_query($conn, $query);
+
+                // Check if query was successful
+                if ($result && mysqli_num_rows($result) > 0) {
+                    // Loop through each row in the result set
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        ?>
+                        <!-- Project Card -->
+                        <div class="col-md-4">
+                            <div class="card mb-4">
+                                <div class="flip-card">
+                                    <div class="flip-card-inner">
+                                        <!-- Front face of the card -->
+                                        <div class="flip-card-front">
+                                            <div class="position-relative">
+                                                <img
+                                                    src="<?php echo $base_url . $row['image']; ?>"
+                                                    class="card-img-top"
+                                                    alt="<?php echo $row['title']; ?>"
+                                                />
+                                                <div class="card-title-inside"><?php echo $row['title']; ?></div>
+                                            </div>
+                                        </div>
+                                        <!-- Back face of the card -->
+                                        <div class="flip-card-back">
+                                            <div class="card-body">
+                                                <p class="card-text">
+                                                    <?php echo $row['description']; ?>
+                                                </p>
+                                                <p class="card-text">
+                                                    Technologies Used: <?php echo $row['technologies_used']; ?>
+                                                    <br />
+                                                    Role: <?php echo $row['role']; ?>
+                                                </p>
+                                                <a
+                                                    href="#"
+                                                    class="btn btn-outline-dark"
+                                                    id="see-project"
+                                                >
+                                                    View Details
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End of Project Card -->
+                        <?php
+                    }
+                } else {
+                    // Handle case when no data is available
+                    echo "<p>No projects found.</p>";
+                }
+
+                // Close the database connection
+                mysqli_close($conn);
+                ?>
+            </div>
+        </div>
+    </section>
+
+
+
+<!-- Contact Section -->
+<section id="contact" class="py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 mx-auto text-center">
+        <h2 class="display-4 mb-4">Contact Me</h2>
+        <p class="lead mb-4">
+          I'm excited to hear from you. Feel free to reach out!
+        </p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-6 mx-auto">
+        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-user"></i></span>
               </div>
+              <input
+                type="text"
+                class="form-control"
+                id="name"
+                name="name"
+                placeholder="Enter your name"
+              />
             </div>
           </div>
-        </div>
-      </section>
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+              </div>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                name="email"
+                placeholder="Enter your email"
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-phone"></i></span>
+              </div>
+              <input
+                type="text"
+                class="form-control"
+                id="contact_number"
+                name="contact_number"
+                placeholder="Enter your contact number"
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-comment"></i></span>
+              </div>
+              <textarea
+                class="form-control"
+                id="message"
+                name="message"
+                rows="4"
+                placeholder="Enter your message"
+              ></textarea>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary" name="submit_contact">
+            <i class="fas fa-paper-plane mr-2"></i> Send Message
+          </button>
+        </form>
+      </div>
+    </div>
 
-      <!-- Contact Section -->
-      <section id="contact" class="py-5">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-8 mx-auto text-center">
-              <h2 class="display-4 mb-4">Contact Me</h2>
-              <p class="lead mb-4">
-                I'm excited to hear from you. Feel free to reach out!
-              </p>
-            </div>
-          </div>
+    <div class="row mt-5">
+      <div class="col-lg-8 mx-auto text-center">
+        <p class="lead mb-4">Connect with me on social media:</p>
+        <i class="fab fa-facebook mx-3" id="social"></i>
+        <i class="fab fa-telegram mx-3" id="social"></i>
+        <i class="fab fa-github mx-3" id="social"></i>
+      </div>
+    </div>
+  </div>
+</section>
 
-          <div class="row">
-            <div class="col-lg-6 mx-auto">
-              <form>
-                <div class="form-group">
-                  <label for="name">Name</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="name"
-                    placeholder="Enter your name"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="email">Email Address</label>
-                  <input
-                    type="email"
-                    class="form-control"
-                    id="email"
-                    placeholder="Enter your email"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="message">Message</label>
-                  <textarea
-                    class="form-control"
-                    id="message"
-                    rows="4"
-                    placeholder="Enter your message"
-                  ></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary">
-                  <i class="fas fa-paper-plane mr-2"></i> Send Message
-                </button>
-              </form>
-            </div>
-          </div>
 
-          <div class="row mt-5">
-            <div class="col-lg-8 mx-auto text-center">
-              <p class="lead mb-4">Connect with me on social media:</p>
-              <i class="fab fa-facebook mx-3" id="social"></i>
-              <i class="fab fa-telegram mx-3" id="social"></i>
-              <i class="fab fa-github mx-3" id="social"></i>
-            </div>
-          </div>
-        </div>
-      </section>
+      <!-- SweetAlert CDN -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+      <?php
+// Check if the form is submitted
+if (isset($_POST['submit_contact'])) {
+    // Establish database connection (replace these values with your actual database credentials)
+    include 'server/server.php';
+
+    // Prepare SQL statement to insert data into the database
+    $sql = "INSERT INTO contact_section (name, email, contact_number, message) VALUES (?, ?, ?, ?)";
+
+    // Prepare and bind parameters
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ssss", $name, $email, $contact_number, $message);
+
+    // Get form data
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $contact_number = $_POST['contact_number'];
+    $message = $_POST['message'];
+
+    // Execute the SQL statement
+    if ($stmt->execute()) {
+        // Close statement and database connection
+        $stmt->close();
+        $conn->close();
+
+        // Trigger SweetAlert success message
+        echo "<script>
+                swal('Success!', 'Message sent successfully!', 'success');
+              </script>";
+    } else {
+        echo "<div class='alert alert-danger'>Error: " . $sql . "<br>" . $conn->error . "</div>";
+    }
+}
+?>
+
+
 
       <!-- Footer Section -->
       <footer class="py-3 text-white text-center">

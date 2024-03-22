@@ -1,0 +1,95 @@
+body {
+    font-family: "Poppins", sans-serif;
+    color: #fff;
+    background-color: #0F2027;  /* fallback for old browsers */
+    background-color: -webkit-linear-gradient(to right, #2C5364, #203A43, #0F2027);  /* Chrome 10-25, Safari 5.1-6 */
+    background-color: linear-gradient(to right, #2C5364, #203A43, #0F2027); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.card-header {
+    background: linear-gradient(to right, #178582, #4389A2);
+    color: #fff;
+    text-align: center;
+    font-weight: bold;
+    font-size: 24px;
+    border-bottom: none;
+    padding: 15px 0;
+}
+
+.card-body {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.form-control {
+    border-radius: 25px;
+    border: none;
+    background-color: #f0f2f5;
+    box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    margin-bottom: 20px;
+    color: #666;
+}
+
+.form-control:focus {
+    outline: none;
+    box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary {
+    background: linear-gradient(to right, #178582, #4389A2);
+    border-color: #007bff;
+    border-radius: 25px;
+    padding: 15px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(to right, #178582, #4389A2);
+    border-color: #0056b3;
+}
+
+.profile-img {
+    max-width: 150px;
+    max-height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #178582;
+}
+
+
+/* Custom styling for file input */
+.custom-file-input {
+    color: transparent;
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.custom-file-input + label {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #fff;
+    background-color: #178582;
+    display: inline-block;
+    cursor: pointer;
+    padding: 10px 20px;
+    border-radius: 25px;
+    transition: background-color 0.3s ease;
+}
+
+.custom-file-input:focus + label,
+.custom-file-input + label:hover {
+    background-color: #4389A2;
+}
+
+/* Styling for the file input icon */
+.custom-file-input + label .fas {
+    margin-right: 10px;
+}
