@@ -1,15 +1,15 @@
-/* About Section */
 #about {
-  padding: 80px 0;
-  overflow: hidden; /* Prevent overlapping */
+  padding: 80px 0 20px;
+  overflow: hidden;
 }
 
 #about .about-content {
-  padding-left: 30px; /* Adjust padding to the left */
+  padding-left: 30px;
+  padding-right: 30px;
 }
 
 #about h2 {
-  color: #fff;
+  color: var(--primary-color);
   font-weight: 700;
   text-align: center;
   font-size: 36px;
@@ -17,6 +17,7 @@
   text-transform: uppercase;
   letter-spacing: 2px;
   animation: slideInUp 1s ease;
+  margin-top: 0;
 }
 
 #about .card {
@@ -24,35 +25,42 @@
   border: none;
   margin-bottom: 20px;
   border-radius: 10px;
-  border: 1px solid #ccc;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   animation: fadeIn 3s ease forwards, slideInRight 3s ease-out forwards,
-    slideInBottom 3s ease-out forwards; /* Adjust animation */
-  position: relative; /* Add position relative */
-  z-index: 1; /* Ensure the card stays on top of other elements */
-  max-width: 500px; /* Adjust maximum width */
-  width: 100%; /* Ensure the card takes full width of its container */
+    slideInBottom 3s ease-out forwards;
+  position: relative;
+  z-index: 1;
+  max-width: 500px;
+  width: 100%;
 }
 
 #about .card-body {
-  padding: 15px; /* Reduce padding */
+  padding: 15px;
+  background-color: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px); /* Frosted glass effect */
+  border-radius: 10px; /* Rounded corners */
+  margin-top: -10px;
 }
 
 #about .card-title {
-  font-size: 20px; /* Reduce title font size */
+  font-size: 20px;
   font-weight: bold;
-  color: #fff; /* Title color */
-  margin-bottom: 10px; /* Reduce margin */
+  color: var(--secondary-color);
+  border-bottom: 1px solid #02577a;
+  margin-bottom: 10px;
+  margin-top: 2px;
+  padding-bottom: 10px;
 }
 
 #about .card-title i {
-  margin-right: 10px; /* Add space between icon and text */
+  margin-right: 10px;
+  color: var(--accent-color);
 }
 
 #about .card-text {
-  font-size: 16px; /* Reduce text font size */
+  font-size: 14px;
   line-height: 1.6;
-  color: #ccc;
+  color: var(--primary-color);
   opacity: 0;
   animation: fadeIn 3s ease forwards;
 }
@@ -60,7 +68,15 @@
 #about img {
   max-width: 100%;
   height: auto;
-  animation: slideInLeft 3s ease;
+  border-image: linear-gradient(
+      135deg,
+      var(--accent-color),
+      var(--secondary-color)
+    )
+    1;
+  border-radius: 73% 27% 41% 59% / 68% 67% 33% 32%;
+  box-shadow: 0 4px 8px var(--accent-color), var(--secondary-color);
+  animation: bounce 2s infinite alternate;
 }
 
 @media (max-width: 768px) {
@@ -92,17 +108,6 @@
   }
 }
 
-@keyframes slideInLeft {
-  from {
-    transform: translateX(-100px);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
 @keyframes slideInRight {
   from {
     transform: translateX(100px);
@@ -114,7 +119,7 @@
   }
 }
 
-@keyframes slideInBottom {
+@keyframes slideInleft {
   from {
     transform: translateY(100px);
     opacity: 0;
@@ -131,5 +136,26 @@
   }
   to {
     opacity: 1;
+  }
+}
+
+@keyframes bounce {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-10px);
+  }
+}
+
+/* Keyframe animation for card */
+@keyframes cardFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

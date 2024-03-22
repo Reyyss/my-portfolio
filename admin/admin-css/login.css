@@ -1,97 +1,134 @@
+:root {
+  --primary-color: #d4f0fc; /* 60% */
+  --secondary-color: #89d6fb; /* 30% */
+  --accent-color: #02a9f7; /* 10% */
+}
 
-    body,
-    html {
-        height: 100%;
-        margin: 0;
-        background: linear-gradient(to right, #3498db, #2980b9); /* Adjusted background gradient */
-        font-family: Arial, sans-serif;
-    }
+body {
+  padding-top: 16px;
+  margin: 0;
+  overflow: hidden;
+  scroll-behavior: smooth;
+  position: relative;
+}
 
-    .container {
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: -2;
+  object-fit: cover;
+  filter: blur(10px);
+}
 
-    .login-form {
-        background: linear-gradient(to right, #cbe3f4, #a2d9ff); /* Adjusted background gradient */
-        padding: 40px;
-        border-radius: 10px;
-        box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
-        width: 400px;
-        position: relative;
-    }
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: -1;
+}
 
-    .login-form-header {
-        text-align: center;
-        margin-bottom: 30px;
-    }
+.container {
+  height: 100vh; /* Set container height to full viewport height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-    .login-form-header h2 {
-        font-size: 36px;
-        color: #3498db; /* Adjusted header color */
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        margin: 0; /* Added to reset default margin */
-    }
+.login-form {
+    background-color: rgba(255, 255, 255, 0.05)
+    /* Adjusted background gradient */ url(../../images/back1.jpg); /* Add background image */
+  backdrop-filter: blur(10px); /* Apply blur effect */
+  padding: 40px;
+  border: 1px solid #02577a;
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
+  width: 400px;
+  position: relative;
+  margin-top: auto; /* Center vertically */
+  margin-bottom: auto; /* Center vertically */
+}
 
-    .login-form .form-group {
-        margin-bottom: 20px;
-    }
+.login-form-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
 
-    .login-form .form-control {
-        border-radius: 20px;
-        padding: 15px;
-        font-size: 18px;
-    }
+.login-form-header h2 {
+  font-size: 36px;
+  color: var(--accent-color);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  margin: 0; /* Added to reset default margin */
+}
 
-    .login-form .form-control::placeholder { /* Added placeholder styling */
-        color: #95a5a6; /* Adjusted placeholder color */
-        font-style: italic; /* Added italic font style */
-        font-size: 14px;
-    }
+.login-form .form-group {
+  margin-bottom: 20px;
+}
 
-    .login-form .btn {
-        border-radius: 20px;
-        padding: 15px 30px;
-        font-weight: bold;
-        background-color: #2ecc71;
-        border-color: #27ae60;
-        font-size: 18px;
-    }
+.login-form .form-control {
+  border-radius: 20px;
+  padding: 15px;
+  color: var(--secondary-color);
+  font-size: 18px;
+}
 
-    .login-form .btn:hover {
-        background-color: #27ae60;
-        border-color: #2ecc71;
-    }
+.login-form .form-control::placeholder {
+  /* Added placeholder styling */
+  color: var(--secondary-color); /* Updated placeholder color */
+  font-style: italic; /* Added italic font style */
+  font-size: 14px;
+}
 
-    .exit-icon {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        font-size: 24px;
-        color: #3498db; /* Adjusted exit icon color */
-        cursor: pointer;
-        transition: transform 0.3s ease;
-    }
+.login-form .btn {
+  border-radius: 20px;
+  padding: 15px 30px;
+  font-weight: bold;
+  background-color: var(--accent-color); /* Updated button background color */
+  border-color: #02577a;
+  font-size: 18px;
+}
 
-    .exit-icon:hover {
-        transform: rotate(180deg);
-    }
+.login-form .btn:hover {
+  background-color: #02577a;
+  border-color: var(--accent-color); /* Updated button border color */
+}
 
-    /* Styling for input icons */
-    .input-group-text {
-        background-color: #3498db; /* Adjusted background color of the icons */
-        border: none;
-        color: #fff;
-        border-radius: 0 20px 20px 0;
-    }
+.exit-icon {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 24px;
+  color: var(--accent-color); /* Updated exit icon color */
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
 
-    .input-group-text i {
-        transition: transform 0.3s ease;
-        cursor: pointer;
-    }
+.exit-icon:hover {
+  transform: rotate(180deg);
+}
 
-    .input-group-text:hover i {
-        transform: scale(1.1);
-    }
+/* Styling for input icons */
+.input-group-text {
+  background-color: var(
+    --primary-color
+  ); /* Updated background color of the icons */
+  border: none;
+  color: #fff;
+  border-radius: 0 20px 20px 0;
+}
+
+.input-group-text i {
+  color: #02577a;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.input-group-text:hover i {
+  transform: scale(1.1);
+}

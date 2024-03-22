@@ -1,55 +1,131 @@
-/*style for Contact Section */
+/* Contact Section */
 #contact {
-  min-height: 90vh;
-  padding: 60px 0;
+  padding: 80px 0;
+  position: relative;
+  height: 100vh; /* Set the height of the section to 100vh */
+  overflow: hidden; /* Hide overflow to prevent scrolling */
 }
 
-#contact h2,
-#contact p {
-  color: #bfa181;
-  margin-bottom: 40px;
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeInUp 1s ease-out forwards;
+#contact .container-fluid {
+  padding-right: 0;
+  padding-left: 0;
 }
 
-#contact #social {
-  font-size: 40px;
+.contact-info {
+  color: var(--secondary-color);
+  padding: 20px;
 }
 
-.form-group label {
-  color: #bfa181;
+.contact-info p {
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
 }
 
-.form-control {
-  border-color: #178582;
+.contact-info p i {
+  margin-right: 10px;
+  color: var(--accent-color);
 }
 
-.btn-primary {
-  background-color: #178582;
-  border-color: #178582;
+.label {
+  margin-right: 10px;
 }
 
-.btn-primary:hover {
-  background-color: #0d3a38;
-  border-color: #0d3a38;
+.contact-form {
+  background-color: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid #02577a;
+  border-radius: 10px;
+  color: var(--secondary-color);
+  margin-top: 110px;
+  margin-bottom: 80px;
+  padding: 30px;
 }
 
-/* Add hover effect and spinning animation to social icons */
-#contact i#social {
+.contact-form h2 {
+  margin-bottom: 30px;
+  padding-bottom: 30px;
+  color: var(--primary-color);
+  border-bottom: 1px solid #02577a;
+}
+
+.contact-form .form-group {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
+  margin-left: 25px;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #01303f;
+  color: var(--secondary-color);
+  padding: 10px;
+  width: 100%;
+  transition: border-bottom-color 0.3s ease-in-out,
+    background-color 0.3s ease-in-out;
+}
+
+.contact-form input[type="text"]:focus,
+.contact-form input[type="email"]:focus,
+.contact-form textarea:focus {
+  outline: none;
+  color: var(--secondary-color);
+  border-bottom-color: #02577a;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.contact-form textarea {
+  height: 120px;
+  color: #01303f;
+}
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  font-size: 14px;
+}
+
+.contact-form .form-group i {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: var(--accent-color);
+}
+
+.contact-form button {
+  background-color: var(--accent-color);
+  color: var(--primary-color);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
   cursor: pointer;
-  transition: transform 0.5s ease;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
-#contact i#social:hover {
-  color: #0d3a38;
-  transform: scale(1.2) rotate(360deg);
+.contact-form button:hover {
+  color: var(--accent-color);
+  background-color: var(--primary-color);
 }
 
-/* Animation Keyframes */
-@keyframes fadeInUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.contact-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+}
+
+#bottom {
+  background-color: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+}
+
+#footer {
+  font-size: 14px;
+  color: aliceblue;
+  text-align: center;
+  padding-top: 12px;
+  border-top: 1px solid #02577a;
 }

@@ -1,5 +1,16 @@
 <?php
-include '../server/server.php';
+$servername = "localhost"; // Change this to your database server name if different
+$username = "root"; // Default username for XAMPP
+$password = ""; // Default password for XAMPP (empty)
+$dbname = "cms_db"; // Change this to your database name where the login table is stored
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
 // Function to show SweetAlert
 function showAlert($icon, $title, $text) {
@@ -12,21 +23,18 @@ function showAlert($icon, $title, $text) {
         </script>";
 }
 
-// Function to update project details and image
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Loop through each project
-    foreach ($_POST['projects'] as $projectId => $project_data) {
+    // Check if title is set in the POST data
+    if (isset($_POST['title'])) {
         // Sanitize input data
-        $title = mysqli_real_escape_string($conn, $project_data['title']);
-        $description = mysqli_real_escape_string($conn, $project_data['description']);
-        $technologies_used = mysqli_real_escape_string($conn, $project_data['technologies_used']);
-        $role = mysqli_real_escape_string($conn, $project_data['role']);
+        $title = mysqli_real_escape_string($conn, $_POST['title']);
+        // Add sanitation for other fields if needed
 
         // Check if an image file is uploaded
-        if ($_FILES['image']['name'][$projectId]) {
+        if ($_FILES['image']['name']) {
             // Process the uploaded image
             $targetDir = "../uploads/";
-            $fileName = basename($_FILES["image"]["name"][$projectId]);
+            $fileName = basename($_FILES["image"]["name"]);
             $targetFilePath = $targetDir . $fileName;
             $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
 
@@ -34,55 +42,109 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $allowTypes = array('jpg', 'png', 'jpeg', 'gif');
             if (in_array($fileType, $allowTypes)) {
                 // Upload image to the server
-                if (move_uploaded_file($_FILES["image"]["tmp_name"][$projectId], $targetFilePath)) {
-                    // Update project details and image in the database
-                    $update_query = "UPDATE projects_section SET title = '{$title}', description = '{$description}', technologies_used = '{$technologies_used}', role = '{$role}', image = '{$targetFilePath}' WHERE id = {$projectId}";
-                    $result = mysqli_query($conn, $update_query);
+                if (move_uploaded_file($_FILES["image"]["tmp_name"], $targetFilePath)) {
+                    // Insert new project details into the database
+                    $insert_query = "INSERT INTO projects_section (title, image) VALUES ('{$title}', '{$targetFilePath}')";
+                    $result = mysqli_query($conn, $insert_query);
 
-                    if (!$result) {
-                        showAlert('error', 'Error', 'Failed to update projects.');
-                        exit(); // Exit the script if an error occurs
+                    if ($result) {
+                        // Project added successfully
+                        header("Location: projects_update.php");
+                        exit();
+                    } else {
+                        echo "Failed to add project.";
                     }
                 } else {
-                    showAlert('error', 'Error', 'Failed to upload image.');
-                    exit(); // Exit the script if image upload fails
+                    echo "Failed to upload image.";
                 }
             } else {
-                showAlert('error', 'Error', 'Only JPG, JPEG, PNG, GIF files are allowed.');
-                exit(); // Exit the script if invalid file type
+                echo "Only JPG, JPEG, PNG, GIF files are allowed.";
             }
         } else {
-            // Update project details without updating image in the database
-            $update_query = "UPDATE projects_section SET title = '{$title}', description = '{$description}', technologies_used = '{$technologies_used}', role = '{$role}' WHERE id = {$projectId}";
-            $result = mysqli_query($conn, $update_query);
+            echo "Please upload an image.";
+        }
+    } else {
+        // Handle case where title is not set
+        echo "Title is missing in the POST data.";
+    }
+}
 
-            if (!$result) {
-                showAlert('error', 'Error', 'Failed to update projects.');
-                exit(); // Exit the script if an error occurs
+// Function to update project details and image
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Loop through each project
+    foreach ($_POST['projects'] as $projectId => $project_data) {
+        // Check if the 'title' key exists
+        if (isset($project_data['title'])) {
+            // Sanitize input data
+            $title = mysqli_real_escape_string($conn, $project_data['title']);
+            $description = mysqli_real_escape_string($conn, $project_data['description']);
+            $technologies_used = mysqli_real_escape_string($conn, $project_data['technologies_used']);
+            $role = mysqli_real_escape_string($conn, $project_data['role']);
+
+            // Check if an image file is uploaded
+            if ($_FILES['image']['name'][$projectId]) {
+                // Process the uploaded image
+                $targetDir = "../uploads/";
+                $fileName = basename($_FILES["image"]["name"][$projectId]);
+                $targetFilePath = $targetDir . $fileName;
+                $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
+
+                // Check if the uploaded file is an image
+                $allowTypes = array('jpg', 'png', 'jpeg', 'gif');
+                if (in_array($fileType, $allowTypes)) {
+                    // Upload image to the server
+                    if (move_uploaded_file($_FILES["image"]["tmp_name"][$projectId], $targetFilePath)) {
+                        // Update project details and image in the database
+                        $update_query = "UPDATE projects_section SET title = '{$title}', description = '{$description}', technologies_used = '{$technologies_used}', role = '{$role}', image = '{$targetFilePath}' WHERE id = {$projectId}";
+                        $result = mysqli_query($conn, $update_query);
+
+                        if (!$result) {
+                            showAlert('error', 'Error', 'Failed to update projects.');
+                            exit();
+                        }
+                    } else {
+                        showAlert('error', 'Error', 'Failed to upload image.');
+                        exit(); 
+                    }
+                } else {
+                    showAlert('error', 'Error', 'Only JPG, JPEG, PNG, GIF files are allowed.');
+                    exit();
+                }
+            } else {
+                // No image uploaded, update project details only
+                $update_query = "UPDATE projects_section SET title = '{$title}', description = '{$description}', technologies_used = '{$technologies_used}', role = '{$role}' WHERE id = {$projectId}";
+                $result = mysqli_query($conn, $update_query);
+
+                if (!$result) {
+                    showAlert('error', 'Error', 'Failed to update projects.');
+                    exit(); 
+                }
             }
+        } else {
+            showAlert('error', 'Error', 'Title is missing for project with ID ' . $projectId);
+            exit();
         }
     }
 
     showAlert('success', 'Success', 'Projects updated successfully.');
 }
 
-// Fetch existing data from the database if no form submission
+
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
-    // Fetch existing projects from the database
+
     $query = "SELECT * FROM projects_section";
     $result = mysqli_query($conn, $query);
 
     if ($result && mysqli_num_rows($result) > 0) {
-        // Initialize array to store projects
+        
         $projects = array();
 
-        // Fetch projects and store them in the array
         while ($row = mysqli_fetch_assoc($result)) {
             $projects[] = $row;
         }
     } else {
         showAlert('error', 'Error', 'Failed to fetch projects.');
-        exit(); // Exit the script if an error occurs
+        exit(); 
     }
 }
 ?>
@@ -99,161 +161,14 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <!-- Custom CSS -->
-    <style>
-body {
-    background-color: grey;
-    color: #fff;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Updated font */
-}
-
-.card {
-    background: linear-gradient(to right, #39424f, #1f2833); /* Updated gradient colors */
-    color: #fff;
-    border: none;
-    border-radius: 20px;
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
-    margin-top: 40px;
-    max-height: 80vh; /* Set maximum height to 80% of viewport height */
-    overflow-y: auto; /* Enable scrolling if content exceeds card height */
-}
-
-.card-header {
-    background-color: transparent;
-    border-bottom: none;
-    color: #fff;
-    padding-bottom: 0;
-}
-
-.card-header input {
-    text-align: center;
-    color: #fff;
-    font-size: 1.5rem;
-    font-weight: bold; /* Make the input text bold */
-    border: none; /* Remove input border */
-    background: none; /* Remove input background */
-    outline: none; /* Remove input outline */
-}
-
-.btn-primary {
-    background-color: #18c9e3;
-    border: none;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    transition: background-color 0.3s; /* Smooth transition on hover */
-}
-
-.btn-primary:hover {
-    background-color: #00acee;
-}
-
-.carousel-control-prev,
-.carousel-control-next {
-    background-color: black;
-    border-radius: 50%;
-    border: none;
-    width: 50px;
-    height: 50px;
-}
-
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-    color: #3498db;
-    font-size: 2em;
-}
-
-.carousel-item {
-    transition: transform 0.6s ease;
-}
-
-.carousel-control-prev,
-.carousel-control-next {
-    cursor: pointer;
-    top: 0%;
-    transform: translateY(-50%);
-}
-
-.carousel-control-prev {
-    left: 5%;
-}
-
-.carousel-control-next {
-    right: 5%;
-}
-
-.carousel-control-prev:hover,
-.carousel-control-next:hover {
-    background-color: rgba(255, 255, 255, 0.5);
-}
-
-.card-body {
-    padding-top: 10px;
-    padding-bottom: 10px;
-    max-height: calc(100% - 20px);
-    overflow-y: auto;
-}
-
-.form-group {
-    margin-bottom: 10px;
-}
-
-.form-control {
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 25px; /* Add border-radius to form controls */
-    background-color: rgba(255, 255, 255, 0.1); /* Update background color */
-    border: 1px solid #fff; /* Add border */
-    color: #fff;
-}
-
-.form-control:focus {
-    border-color: #18c9e3; /* Change border color on focus */
-}
-
-.form-group label {
-    color: white;
-}
-
-.preview-image {
-    max-width: 150px;
-    max-height: 150px;
-    margin-top: 5px;
-    border-radius: 10px; /* Add border-radius to the preview image */
-}
-
-/* Adjust positioning of the file input icon */
-.fa-upload {
-    background-color: #39424f;
-    width: 100%;
-    color: #18c9e3;
-    cursor: pointer; 
-    transition: color 0.3s ease;
-    position: absolute;
-    bottom: -16px;
-    left: 0;
-}
-
-/* Adjust icon size and padding */
-.fa-upload {
-    font-size: 18px;
-    padding: 7px; 
-}
-
-.fa-upload:hover {
-    color: #00acee;
-}
-
-
-
-
-    </style>
+    <link rel="stylesheet" href="admin-css/projects_update.css" />
 </head>
 
 <body>
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-8">
-            <?php if (!empty($projects)) : ?>
+                <?php if (!empty($projects)) : ?>
                     <div id="carouselExampleIndicators" class="carousel slide" data-ride="false">
                         <ol class="carousel-indicators">
                             <?php foreach ($projects as $index => $project) : ?>
@@ -261,18 +176,21 @@ body {
                             <?php endforeach; ?>
                         </ol>
                         <div class="carousel-inner">
-                            <?php foreach ($projects as $index => $project) : ?>
+                        <?php foreach ($projects as $index => $project) : ?>
                                 <div class="carousel-item <?php if ($index === 0) echo 'active'; ?>">
                                     <div class="card mb-3">
                                         <div class="card-header">
                                             <input type="text" class="form-control border-0 bg-transparent" value="<?php echo $project['title']; ?>">
+                                            <!-- Add delete button -->
+                                            <button class="btn btn-danger delete-project" data-project-id="<?php echo $project['id']; ?>"><i class="fas fa-times"></i></button>
+                                            <button class="btn btn-success ml-4 add-project"><i class="fas fa-plus"></i></button>
                                         </div>
                                         <div class="card-body">
                                             <form method="post" enctype="multipart/form-data">
                                                 <input type="hidden" name="projects[<?php echo $project['id']; ?>][title]" value="<?php echo $project['title']; ?>">
                                                 <div class="form-group" style="position: relative; display: inline-block;">
                                                     <?php if (!empty($project['image'])) : ?>
-                                                        <img src="<?php echo $project['image']; ?>" alt="Current Image" class="preview-image">
+                                                        <img src="<?php echo $project['image']; ?>" alt="Current Image" class="preview-image" style="max-width: 100%; height: auto;">
                                                     <?php else : ?>
                                                         <p>No image uploaded</p>
                                                     <?php endif; ?>
@@ -299,6 +217,7 @@ body {
                                     </div>
                                 </div>
                             <?php endforeach; ?>
+
                         </div>
                         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -312,13 +231,27 @@ body {
                 <?php endif; ?>
             </div>
         </div>
-    </div>
+
+
+
     <!-- Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!-- Custom JavaScript -->
     <script>
+        function previewImage(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $(input).closest('.form-group').find('.preview-image').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
         $('.carousel-control-prev').click(function() {
             $('#carouselExampleIndicators').carousel('prev');
         });
@@ -327,6 +260,111 @@ body {
             $('#carouselExampleIndicators').carousel('next');
         });
     </script>
+
+<script>
+    $(document).ready(function() {
+        // Delete project button click event
+        $('.delete-project').click(function() {
+            var projectId = $(this).data('project-id');
+            // Call a function to confirm deletion or directly submit the form for deletion
+            if (confirm("Are you sure you want to delete this project?")) {
+                // Submit form for deletion
+                var form = $('<form method="post" action="cms-content/action/delete_project.php"><input type="hidden" name="project_id" value="' + projectId + '"></form>');
+                $('body').append(form);
+                form.submit();
+            }
+        });
+    });
+</script>
+
+</div>
+
+
+
+<script>
+    // Function to preview image when a file is selected
+function previewNewImage(input) {
+    // Check if any file is selected
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            // Display the preview image
+            $('#previewNewImage').attr('src', e.target.result);
+            $('.preview-container').show(); // Show the preview container
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+    $(document).ready(function() {
+        // Add project button click event
+        $('.add-project').click(function() {
+            // Show SweetAlert for adding a new project
+            Swal.fire({
+                title: 'Add New Project',
+                html: `
+                    <label for="newTitle">Title</label>
+                    <input type="text" id="newTitle" name="newTitle" class="swal-input">
+                    
+                    <label for="newDescription">Description</label>
+                    <textarea id="newDescription" name="newDescription" rows="3" class="swal-input"></textarea>
+                    
+                    <label for="newTechnologies">Technologies Used</label>
+                    <input type="text" id="newTechnologies" name="newTechnologies" class="swal-input">
+                    
+                    <label for="newRole">Role</label>
+                    <input type="text" id="newRole" name="newRole" class="swal-input">
+                    
+                    <label for="newImage">Image</label>
+                    <input type="file" id="newImage" name="newImage" onchange="previewNewImage(this);" class="swal-input">
+                    
+                    <div class="preview-container" style="display: none;">
+                        <img id="previewNewImage" src="#" alt="Preview Image" style="max-width: 100%; height: auto;">
+                    </div>
+                `,
+                showCancelButton: true,
+                confirmButtonText: 'Add',
+                preConfirm: () => {
+                    // Handle form submission for adding a new project
+                    var newTitle = $('#newTitle').val();
+                    var newDescription = $('#newDescription').val();
+                    var newTechnologies = $('#newTechnologies').val();
+                    var newRole = $('#newRole').val();
+                    var newImage = $('#newImage')[0].files[0];
+                    
+                    var formData = new FormData();
+                    formData.append('title', newTitle);
+                    formData.append('description', newDescription);
+                    formData.append('technologies_used', newTechnologies);
+                    formData.append('role', newRole);
+                    formData.append('image', newImage);
+                    
+                    $.ajax({
+                        url: '/MyPortfolio/admin/add_project.php',
+                        type: 'POST',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function(response) {
+                            // Handle success response
+                            // For example, show a success message
+                            Swal.fire('Success', 'Project added successfully!', 'success');
+                        },
+                        error: function(xhr, status, error) {
+                            // Handle error response
+                            // For example, show an error message
+                            Swal.fire('Error', 'Failed to add project: ' + error, 'error');
+                        }
+                    });
+                }
+            });
+        });
+    });
+</script>
+
+
+
 </body>
 
 </html>

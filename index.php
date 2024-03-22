@@ -45,7 +45,12 @@ if ($result && mysqli_num_rows($result) > 0) {
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
     />
   </head>
-  <body>
+  <body>\
+
+  <video autoplay muted loop id="background-video">
+    <source src="images/back1.mp4" type="video/mp4">
+  </video>
+      
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-light">
       <a class="navbar-brand" href="admin/login/login.php"
@@ -137,18 +142,18 @@ if ($result && mysqli_num_rows($result) > 0) {
             <div class="col-lg-6">
               <?php
               // Fetch image URL from the database
-      $sql_image = "SELECT image FROM about_section WHERE id = 1"; // Assuming id 1 for the About Me section
-      $result_image = $conn->query($sql_image);
+                  $sql_image = "SELECT image FROM about_section WHERE id = 1"; // Assuming id 1 for the About Me section
+                  $result_image = $conn->query($sql_image);
 
-      if ($result_image->num_rows > 0) {
-          $row_image = $result_image->fetch_assoc();
-          $image = $row_image["image"];
-          // Replace spaces with %20 in the image URL
-          $image = str_replace(" ", "%20", $image);
-          echo '<img src="uploads/' . $image . '" alt="About Me" class="img-fluid rounded" id="about-me-profile">';
-      } else {
-          echo "Image not found";
-      }
+                  if ($result_image->num_rows > 0) {
+                      $row_image = $result_image->fetch_assoc();
+                      $image = $row_image["image"];
+                      // Replace spaces with %20 in the image URL
+                      $image = str_replace(" ", "%20", $image);
+                      echo '<img src="uploads/' . $image . '" alt="About Me" id="about-me-profile">';
+                  } else {
+                      echo "Image not found";
+                  }
               ?>
             </div>
             <div class="col-lg-6">
@@ -205,7 +210,7 @@ if ($result && mysqli_num_rows($result) > 0) {
 <!-- Skills Section -->
 <section id="skills" class="py-5">
     <div class="container">
-        <h2 class="display-4 text-center">Skills</h2>
+        <h2 class="display-4 mb-4 text-center">Skills</h2>
 
         <div class="row">
             <?php
@@ -360,117 +365,91 @@ if ($result && mysqli_num_rows($result) > 0) {
     </section>
 
 
-
-<!-- Contact Section -->
+<!-- contact section -->
 <section id="contact" class="py-5">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 mx-auto text-center">
-        <h2 class="display-4 mb-4">Contact Me</h2>
-        <p class="lead mb-4">
-          I'm excited to hear from you. Feel free to reach out!
-        </p>
-      </div>
+    <div class="container-fluid px-0">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="contact-form-container mx-auto"> <!-- Center the form horizontally -->
+                    <div class="contact-form">
+                        <h2>Contact Me</h2>
+                        <form method="post">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group position-relative">
+                                        <i class="fas fa-user position-absolute top-50 start-0 translate-middle-y"></i>
+                                        <input type="text" class="form-control" name="name" placeholder="Your Name" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group position-relative">
+                                        <i class="fas fa-envelope position-absolute top-50 start-0 translate-middle-y"></i>
+                                        <input type="email" class="form-control" name="email" placeholder="Your Email" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group position-relative">
+                                        <i class="fas fa-phone position-absolute top-50 start-0 translate-middle-y"></i>
+                                        <input type="text" class="form-control" name="contact_number" placeholder="Your Contact Number">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group position-relative">
+                                        <i class="fas fa-map-marker-alt position-absolute top-50 start-0 translate-middle-y"></i>
+                                        <input type="text" class="form-control" name="address" placeholder="Your Address">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative">
+                                        <i class="fas fa-comment position-absolute top-50 start-0 translate-middle-y"></i>
+                                        <textarea class="form-control" name="message" rows="5" placeholder="Your Message" required></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <button type="submit" name="submit_contact" class="btn btn-primary">Send Message</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="bottom">
+            <div class="col-md-12 mb-4 mb-md-0">
+                <div class="contact-info">
+                    <p><i class="fas fa-map-marker-alt"></i> <strong class="label">Address:</strong> <span class="value">Baliwasan Grande, Zamboanga City, Ph</span></p>
+                    <p><i class="fas fa-envelope"></i> <strong class="label">Email:</strong> <span class="value">reynidosh@gmail.com</span></p>
+                    <p><i class="fas fa-phone"></i> <strong class="label">Phone:</strong> <span class="value">+63 997 440 5146</span></p>
+                </div>
+                    <p id="footer">Copyright © 2024 Reynido S. Hamog. All Rights Reserved.</p>
+            </div>
+        </div>
     </div>
-
-    <div class="row">
-      <div class="col-lg-6 mx-auto">
-        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-          <div class="form-group">
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fas fa-user"></i></span>
-              </div>
-              <input
-                type="text"
-                class="form-control"
-                id="name"
-                name="name"
-                placeholder="Enter your name"
-              />
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-              </div>
-              <input
-                type="email"
-                class="form-control"
-                id="email"
-                name="email"
-                placeholder="Enter your email"
-              />
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fas fa-phone"></i></span>
-              </div>
-              <input
-                type="text"
-                class="form-control"
-                id="contact_number"
-                name="contact_number"
-                placeholder="Enter your contact number"
-              />
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fas fa-comment"></i></span>
-              </div>
-              <textarea
-                class="form-control"
-                id="message"
-                name="message"
-                rows="4"
-                placeholder="Enter your message"
-              ></textarea>
-            </div>
-          </div>
-          <button type="submit" class="btn btn-primary" name="submit_contact">
-            <i class="fas fa-paper-plane mr-2"></i> Send Message
-          </button>
-        </form>
-      </div>
-    </div>
-
-    <div class="row mt-5">
-      <div class="col-lg-8 mx-auto text-center">
-        <p class="lead mb-4">Connect with me on social media:</p>
-        <i class="fab fa-facebook mx-3" id="social"></i>
-        <i class="fab fa-telegram mx-3" id="social"></i>
-        <i class="fab fa-github mx-3" id="social"></i>
-      </div>
-    </div>
-  </div>
 </section>
+
 
 
       <!-- SweetAlert CDN -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-      <?php
+<?php
 // Check if the form is submitted
 if (isset($_POST['submit_contact'])) {
     // Establish database connection (replace these values with your actual database credentials)
     include 'server/server.php';
 
     // Prepare SQL statement to insert data into the database
-    $sql = "INSERT INTO contact_section (name, email, contact_number, message) VALUES (?, ?, ?, ?)";
+    $sql = "INSERT INTO contact_section (name, email, contact_number, address, message) VALUES (?, ?, ?, ?, ?)";
 
     // Prepare and bind parameters
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssss", $name, $email, $contact_number, $message);
+    $stmt->bind_param("sssss", $name, $email, $contact_number, $address, $message);
 
     // Get form data
     $name = $_POST['name'];
     $email = $_POST['email'];
     $contact_number = $_POST['contact_number'];
+    $address = $_POST['address'];
     $message = $_POST['message'];
 
     // Execute the SQL statement
@@ -489,20 +468,15 @@ if (isset($_POST['submit_contact'])) {
 }
 ?>
 
-
-
-      <!-- Footer Section -->
-      <footer class="py-3 text-white text-center">
-        <div class="container">
-          <p>&copy; 2024 Reynido S. Hamog</p>
-        </div>
-      </footer>
     </main>
+
+
 
     <!-- Bootstrap JS and jQuery -->
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
     <script src="js/text-animation.js"></script>
     <script src="js/icon-display.js"></script>
     <script src="js/active-nav.js"></script>
+    
   </body>
 </html>

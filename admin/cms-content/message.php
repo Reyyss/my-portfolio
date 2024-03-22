@@ -8,7 +8,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <style>
     .card {
-      height: 100%;
       border: none;
       border-radius: 10px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -21,13 +20,25 @@
     .card-header h5 {
       margin-bottom: 0;
     }
-    .card-body {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
     .badge {
       background-color: #6c757d;
+    }
+    .card-body {
+      height: 200px; /* Adjust the height as needed */
+      overflow-y: auto;
+    }
+    .card-body::-webkit-scrollbar {
+      width: 10px;
+    }
+    .card-body::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+    .card-body::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 5px;
+    }
+    .card-body::-webkit-scrollbar-thumb:hover {
+      background: #555;
     }
   </style>
 </head>

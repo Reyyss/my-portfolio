@@ -1,12 +1,16 @@
-/* Projects Section Styles */
 #projects {
   padding: 60px 0;
 }
 
 #projects h2 {
-  color: #bfa181;
-  margin-bottom: 40px;
+  color: var(--primary-color);
+  margin-top: 40px;
+  margin-bottom: 20px;
   opacity: 0;
+  font-weight: 700;
+  letter-spacing: 2px;
+  font-size: 36px;
+  text-transform: uppercase;
   transform: translateY(20px);
   animation: fadeInUp 1s ease-out forwards;
 }
@@ -23,17 +27,18 @@
   max-width: 100%;
   margin-bottom: 20px;
   position: relative;
-  border: 1px solid #bfa181;
+  border: 1px solid #02577a;
   border-radius: 8px;
   overflow: hidden;
   background-color: rgba(255, 255, 255, 0.05);
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
   transition: transform 0.5s, box-shadow 0.5s;
+  animation: fadeInUp 1s ease forwards;
 }
 
 .card:hover {
   transform: scale(1.05);
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.2); 
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
 }
 
 .flip-card {
@@ -89,7 +94,7 @@
   left: 0;
   right: 0;
   font-size: 20px;
-  color: #bfa181;
+  color: var(--accent-color);
   text-align: center;
   background: rgba(0, 0, 0, 0.5);
   padding: 10px 0;
@@ -101,8 +106,8 @@
 
 .card-text {
   font-size: 14px;
-  color: #bfa181;
-  max-height: 80px; 
+  color: var(--accent-color);
+  max-height: 80px;
   overflow: hidden;
 }
 
@@ -111,13 +116,13 @@
   bottom: 10px;
   left: 50%;
   transform: translateX(-50%);
-  color: #178582;
+  color: var(--primary-color);
   text-decoration: none;
   transition: color 1s;
 }
 
 #see-project:hover {
-  color: #007bff;
+  color: var(--accent-color);
 }
 
 /* Animation Keyframes */

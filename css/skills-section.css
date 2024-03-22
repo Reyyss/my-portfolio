@@ -1,23 +1,29 @@
 #skills {
-  padding: 60px 0;
+  padding: 20px 0;
+  height: 100vh;
 }
 
 #skills h2 {
-  color: #bfa181;
-  margin-bottom: 40px;
+  color: var(--primary-color);
+  margin-top: 40px;
+  margin-bottom: 20px;
   opacity: 0;
+  font-weight: 700;
+  letter-spacing: 2px;
+  font-size: 36px;
+  text-transform: uppercase;
   transform: translateY(20px);
   animation: fadeInUp 1s ease-out forwards;
 }
 
 #skills h3 {
-  color: #bfa181;
+  color: var(--primary-color);
 }
 
 .list-group-item {
   background-color: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(5px);
-  color: #178582;
+  color: var(--accent-color); /* Adjusted text color */
   border: none;
   border-radius: 20px;
   opacity: 0;
@@ -28,7 +34,8 @@
   transition: background-color 0.5s ease-in-out;
   position: relative;
   cursor: pointer;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Added box shadow */
 }
 
 .list-group-item::before {
@@ -38,14 +45,14 @@
   left: 0;
   width: 0;
   height: 100%;
-  background-color: #0d3a38;
+  background-color: var(--accent-color); /* Set accent color */
   transition: width 0.5s ease-in-out;
   z-index: -1;
 }
 
 .list-group-item:hover {
-  background-color: #0d3a38;
-  color: #bfa181;
+  background-color: var(--accent-color); /* Set accent color */
+  color: var(--primary-color); /* Adjusted text color */
 }
 
 .list-group-item:hover::before {
@@ -63,15 +70,15 @@
 
 .progress {
   background-color: transparent;
-  height: 15px;
-  margin-top: 10px;
-  border: 1px solid #0d3a38;
+  height: 12px;
+  margin-top: 5px;
+  border: 1px solid #02577a; /* Set border color */
   border-radius: 4px;
   overflow: hidden;
 }
 
 .progress:hover {
-  border: 1px solid #bfa181;
+  border: 1px solid var(--accent-color); /* Set accent color */
 }
 
 .progress-bar {

@@ -59,7 +59,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 </head>
 <body>
+
 <div class="container">
+    
+<video autoplay muted loop id="background-video">
+    <source src="../../images/back1.mp4" type="video/mp4">
+  </video>
     <div class="login-form">
         <i class="fas fa-times exit-icon" onclick="history.go(-1)"></i>
         <div class="login-form-header">
